@@ -17,32 +17,32 @@ struct FieldAccessor {
 
 
     coords = f.getCoordinates();
-    
+
     ASSERT0(f.isAllocated());
-  
+
     data = &f(0,0,0);
 
-    //----- Field 3d data -> array for GPU    
+    //----- Field 3d data -> array for GPU
     f_data = f(0,0);
 
-    // Field size for GPU 
+   //------ Field2D data to array for GPU
+    f2d_dx= &coords->dx(0,0);
+    f2d_dy= &coords->dy(0,0);
+    f2d_dz= coords->dz;
+    f2d_J= &coords->J(0,0);
+
+    f2d_G1= &coords->G1(0,0);
+    f2d_G3= &coords->G3(0,0);
+    f2d_g11= &coords->g11(0,0);
+    f2d_g13= &coords->g13(0,0);
+    f2d_g22= &coords->g22(0,0);
+    f2d_g33= &coords->g33(0,0);
+ //---------------------------------------
+
+    // Field size for GPU
     f_nx = f.getNx();
     f_ny = f.getNy();
     f_nz = f.getNz();
-    
-   //------ Field2D data to array for GPU
-    f2d_dx= &f.getCoordinates()->dx(0,0);
-    f2d_dy= &f.getCoordinates()->dy(0,0);
-    f2d_dz= f.getCoordinates()->dz;
-    f2d_J= &f.getCoordinates()->J(0,0);
-    
-    f2d_G1= &f.getCoordinates()->G1(0,0);
-    f2d_G3= &f.getCoordinates()->G3(0,0);
-    f2d_g11= &f.getCoordinates()->g11(0,0);
-    f2d_g13= &f.getCoordinates()->g13(0,0);
-    f2d_g22= &f.getCoordinates()->g22(0,0);
-    f2d_g33= &f.getCoordinates()->g33(0,0);
- //---------------------------------------
 
   if (f.hasParallelSlices()) {
       yup = &f.yup();
