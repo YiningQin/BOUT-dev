@@ -67,6 +67,7 @@ public:
         Ind3D *ob_i = &(indices)[0];
         RAJA::forall<EXEC_POL>(RAJA::RangeSegment(0, indices.size()), [=] RAJA_DEVICE (int id) {
                 int i = ob_i[id].ind;
+		BoutReal div_current = alpha * Div_par_Grad_par_g(phi_minus_n_acc, i);
 		DDT(n_acc)[i] =  - bracket_g(phi_acc, n_acc, i)
                 	    - div_current
                 	    - kappa * DDZ_g(phi_acc, i)
